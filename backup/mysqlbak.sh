@@ -3,8 +3,8 @@
 #date:2012.02.24
 #editor:mayiwei
 
-USER=root
-PWD=111111
+USER='YOUR_MySQL_USERNAME'
+PWD='YOUR_MySQL_PASSWORD'
 DATE=`date -d yesterday +%Y-%m-%d`
 
 #for innodb

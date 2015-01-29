@@ -1,0 +1,62 @@
+#!/bin/sh
+JAVA_HOME=/usr/local/java
+CATALINA_HOME=/usr/local/tomcat
+DAEMON_HOME=/usr/local/tomcat/bin
+TOMCAT_USER=www
+
+JAVA_OPTS=" -Xms4096m -Xmx4096m -XX:PermSize=256M -XX:MaxNewSize=256m -XX:MaxPermSize=4096m -Djava.awt.headless=true "
+CATALINA_OPTS="-Dfile.encoding=UTF-8"
+
+# for multi instances adapt those lines.
+TMP_DIR=/var/tmp
+PID_FILE=/var/run/jsvc.pid
+CATALINA_BASE=/usr/local/tomcat
+
+#CATALINA_OPTS="-Djava.library.path=/home/jfclere/jakarta-tomcat-connectors/jni/native/.libs"
+CLASSPATH=\
+$JAVA_HOME/lib/tools.jar:\
+$CATALINA_HOME/bin/commons-daemon.jar:\
+$CATALINA_HOME/bin/bootstrap.jar
+
+case "$1" in
+  start)
+    #
+    # Start Tomcat
+    #
+    $DAEMON_HOME/jsvc \
+    -user $TOMCAT_USER \
+    -home $JAVA_HOME \
+    -Dcatalina.home=$CATALINA_HOME \
+    -Dcatalina.base=$CATALINA_BASE \
+    -Djava.io.tmpdir=$TMP_DIR \
+    -wait 10 \
+    -pidfile $PID_FILE \
+    -outfile $CATALINA_HOME/logs/catalina.out \
+    -errfile '&1' \
+	$JAVA_OPTS \
+    $CATALINA_OPTS \
+    -cp $CLASSPATH \
+    org.apache.catalina.startup.Bootstrap
+    #
+    # To get a verbose JVM
+    #-verbose \
+    # To get a debug of jsvc.
+    #-debug \
+    exit $?
+    ;;
+
+  stop)
+    #
+    # Stop Tomcat
+    #
+    $DAEMON_HOME/jsvc \
+    -stop \
+    -pidfile $PID_FILE \
+    org.apache.catalina.startup.Bootstrap
+    exit $?
+    ;;
+
+  *)
+    echo "Usage tomcat.sh start/stop"
+    exit 1;;
+esac

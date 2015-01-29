@@ -1,0 +1,20 @@
+#!/bin/bash 
+#this script for start|stop|restart rsync daemon service 
+#date:2012/03/15
+
+case "$1" in
+	start)
+		nohup /usr/local/sbin/inotify.sh > /var/log/inotify 2>&1 &
+		echo "inotify start ok"
+		;;
+	restart)
+		ps aux|grep "inotify"|grep -v "grep"|awk '{print $2}'|xargs -i{} kill -9 {}
+		nohup /usr/local/sbin/inotify.sh > /var/log/inotify 2>&1 &
+		echo "inotify restart ok"
+		;;
+	stop)
+		ps aux|grep "inotify"|grep -v "grep"|awk '{print $2}'|xargs -i{} kill -9 {}
+		echo "inotify stop ok"
+		;;
+esac
+exit 0

@@ -1,0 +1,60 @@
+#!/bin/sh
+ 
+# Source function library.
+. /etc/rc.d/init.d/functions
+ 
+# Source networking configuration.
+. /etc/sysconfig/network
+ 
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+ 
+lsyncd="/usr/local/lsyncd/bin/lsyncd"
+prog=$(basename $lsyncd)
+ 
+lsyncd_CONF_FILE="/usr/local/lsyncd/conf/lsyncd.conf"
+ 
+[ -f /etc/sysconfig/lsyncd ] && . /etc/sysconfig/lsyncd
+ 
+lockfile=/var/lock/subsys/lsyncd
+ 
+start() {
+    [ -x $lsyncd ] || exit 5
+    [ -f $lsyncd_CONF_FILE ] || exit 6
+    echo -n $"Starting $prog: "
+    daemon $lsyncd $lsyncd_CONF_FILE
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+ 
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -9
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+ 
+restart() {
+    stop
+    sleep 1
+    start
+}
+ 
+case "$1" in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac

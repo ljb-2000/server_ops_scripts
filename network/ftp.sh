@@ -1,7 +1,7 @@
 #!/bin/bash 
 ftp -n<<! 
-open 125.39.40.251
-user rayli-www2 2008(rayli)index2*0725
+open xxx.xxx.xxx.xxx
+user USERNAME PASSWORD
 binary  
 lcd /var/www/html
 prompt 

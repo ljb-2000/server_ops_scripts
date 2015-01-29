@@ -1,0 +1,16 @@
+#!/bin/bash
+
+date +%H:%M:%S >> /data/logs/php/php-fpm-active
+#active=`curl -s http://XXX.com/php-fpm_status|egrep "^active"|awk '{print $3}'`
+sed -i '$s/$/& '$(curl -s --connect-timeout 10 http://XXX.com/php-fpm_status|egrep "^active"|awk '{print $3}')'/' /data/logs/php/php-fpm-active
+gnuplot <<EOF
+set terminal png
+set output '/data/www/wwwroot/sprite/active.png'
+set xdata time
+set timefmt '%H:%M:%S'
+set xlabel 'TIME'
+set format x '%H:%M'
+set xtics rotate
+set ylabel 'active'
+plot "/data/logs/php/php-fpm-active" using 1:2 title "active" with lines
+EOF

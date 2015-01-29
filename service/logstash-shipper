@@ -1,0 +1,61 @@
+#!/bin/sh
+
+# Source function library.
+. /etc/rc.d/init.d/functions
+
+# Source networking configuration.
+. /etc/sysconfig/network
+
+# Check that networking is up.
+[ "$NETWORKING" = "no" ] && exit 0
+
+logstash="/usr/local/logstash/bin/logstash"
+prog=$(basename $logstash)
+
+logstash_CONF_FILE="/usr/local/logstash/shipper.conf"
+logstash_LOG_FILE="/data/logs/logstash/logstash.log"
+
+[ -f /etc/sysconfig/logstash ] && . /etc/sysconfig/logstash
+
+lockfile=/var/lock/subsys/logstash
+
+start() {
+    [ -x $logstash ] || exit 5
+    [ -f $logstash_CONF_FILE ] || exit 6
+    echo -n $"Starting $prog: "
+    daemon $logstash agent -f $logstash_CONF_FILE -l $logstash_LOG_FILE
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && touch $lockfile
+    return $retval
+}
+
+stop() {
+    echo -n $"Stopping $prog: "
+    killproc $prog -9
+    retval=$?
+    echo
+    [ $retval -eq 0 ] && rm -f $lockfile
+    return $retval
+}
+
+restart() {
+    stop
+    sleep 1
+    start
+}
+
+case "$1" in
+    start)
+        $1
+        ;;
+    stop)
+        $1
+        ;;
+    restart)
+        $1
+        ;;
+    *)
+        echo $"Usage: $0 {start|stop|restart}"
+        exit 2
+esac

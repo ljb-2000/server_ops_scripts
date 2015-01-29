@@ -3,8 +3,8 @@
 #date:2012.02.24
 #editor:mayiwei
 
-USER=root
-PWD=111111
+USER=''
+PWD=''
 MesDate=`date -d '30 days ago' +%Y-%m-%d`
 SqlDate=`date -d '-1 week' +%m-%d`
 Mes=/www/messages

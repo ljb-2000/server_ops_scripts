@@ -21,7 +21,7 @@ class EventHandler(pyinotify.ProcessEvent):
     def process_IN_MOVED_TO(self, event):
         channel = event.pathname.split('/')
         m = ['brand', 'auto', 'timepiece', 'jewelry', 'fashion', 'healthbeauty', 'admiration', \
-			 'jetyacht', 'lifestyle', 'elite', 'viewpoint', 'activity', 'club', 'industry', 'trip']
+            'jetyacht', 'lifestyle', 'elite', 'viewpoint', 'activity', 'club', 'industry', 'trip']
         if channel[5] in m:
             url = re.sub(r'/data/www/wwwroot/w/\w+/', 'http://%s.XXX.com/', event.pathname) % channel[5]
         elif channel[5] == 'gou':
@@ -38,7 +38,7 @@ class EventHandler(pyinotify.ProcessEvent):
             url = re.sub(r'/data/www/wwwroot/w/home/video/', 'http://video.XXX.com/', event.pathname)
         elif channel[6] == 'HomeFocus':
             url = re.sub(r'/data/www/wwwroot/w/home/', 'http://www.XXX.com/', event.pathname)
-		
+
         push_to_cdn(url)
         
 def monitor():

@@ -14,25 +14,25 @@ dict = {}
 
 #empty the log file
 with open (ok_log, 'w') as ok:
-	ok.truncate()
-	ok.close()
+    ok.truncate()
+    ok.close()
 
 with open (error_log, 'w') as error:
-	error.truncate()
-	error.close()
+    error.truncate()
+    error.close()
 
 f = open('%s' % test_file)
 
 for url in f.readlines():
-	url = url.strip('')
-	channel = url[7:].split('.')[0]
-	url = re.sub(r'/$', '/index.html', url)
+    url = url.strip('')
+    channel = url[7:].split('.')[0]
+    url = re.sub(r'/$', '/index.html', url)
 
-	if channel == 'video':
-		file = re.sub(r'http://video.XXX.com/', '/data/www/wwwroot/w/home/video/', url)
-	else:
-		file = re.sub(r'http://(\w+).XXX.com/', '/data/www/wwwroot/w/%s/', url) % channel
-	
-	dict = {file:url}
+    if channel == 'video':
+        file = re.sub(r'http://video.XXX.com/', '/data/www/wwwroot/w/home/video/', url)
+    else:
+        file = re.sub(r'http://(\w+).XXX.com/', '/data/www/wwwroot/w/%s/', url) % channel
 
-	subprocess.call('[[ -n `grep %s %s` ]] && echo %s >> %s || echo %s >> %s' % (test_code, file, dict.get(file), ok_log, dict.get(file), error_log), shell=True)
+    dict = {file:url}
+
+    subprocess.call('[[ -n `grep %s %s` ]] && echo %s >> %s || echo %s >> %s' % (test_code, file, dict.get(file), ok_log, dict.get(file), error_log), shell=True)

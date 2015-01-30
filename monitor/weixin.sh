@@ -29,12 +29,12 @@ EOF
 
 if [ $last1 -gt 600 ]
 then
-	server='192.168.1.14'
-	mail
+    server='192.168.1.14'
+    mail
 fi
 
 if [ $last2 -gt 600 ]
 then
-	server='192.168.1.11'
-	mail
+    server='192.168.1.11'
+    mail
 fi

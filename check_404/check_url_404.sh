@@ -9,14 +9,14 @@ code="200"
 dir=/usr/local/sbin/ad
 
 for url in `cat /usr/local/sbin/ad/All_ok`;do
-	total=`expr $total + 1`
-	b=`curl -I $url -s | head -1 | awk '{print$2}'`
-	if [[ $b -ne $code ]];then
-		echo $url >> $dir/failure.log
-		curl -I $url -s|head -n1 >> $dir/failure.log
-		failure=`expr $failure + 1`
-	else
-		success=`expr $success + 1`
+    total=`expr $total + 1`
+    b=`curl -I $url -s | head -1 | awk '{print$2}'`
+    if [[ $b -ne $code ]];then
+        echo $url >> $dir/failure.log
+        curl -I $url -s|head -n1 >> $dir/failure.log
+        failure=`expr $failure + 1`
+    else
+        success=`expr $success + 1`
     fi;
 done
 echo total=$total >>  $dir/info.log

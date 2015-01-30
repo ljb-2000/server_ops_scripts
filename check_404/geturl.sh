@@ -29,7 +29,7 @@ awk -F/ '$4 ~/^Activity$/' $file > $channel_dir/Activity
 
 #check http code 200
 for url in `cat /usr/local/sbin/geturl/url/*`;do
-	total=`expr $total + 1`
+    total=`expr $total + 1`
     b=`curl -I $url -s | head -1 | awk '{print$2}'`
     if [[ $b -ne $code ]];then
         echo $url >> $work_dir/failure.log

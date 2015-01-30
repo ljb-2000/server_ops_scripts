@@ -12,12 +12,12 @@ with open (log_file, 'w') as l:
     l.close()
 
 with open(test_file) as f:
-	for url in f.readlines():
-		url = url.strip()
-		results = requests.get(url, timeout=1)
+    for url in f.readlines():
+        url = url.strip()
+        results = requests.get(url, timeout=1)
 
-		if results.status_code == 404:
-			with open(log_file, 'a') as l:
-				l.write(str(results.status_code) + ' ' + url + '\n\n')
-	l.close()
+        if results.status_code == 404:
+            with open(log_file, 'a') as l:
+                l.write(str(results.status_code) + ' ' + url + '\n\n')
+    l.close()
 f.close()

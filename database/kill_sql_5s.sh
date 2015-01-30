@@ -1,8 +1,7 @@
 #!/bin/bash
 
 port=53
-if [ $port'z' == 'z' ]
-then
+if [ $port'z' == 'z' ];then
   port=3306
 fi
 
@@ -14,9 +13,10 @@ if [ -s .sql.${1}.tmp ];then
   date +"%Y%M%D %H:%m:%S">>${1}_1.log
   cat .sql.${1}.tmp>>${1}_1.log
 fi
-for i in $pids" 0"
-do
+
+for i in $pids" 0";do
   echo "${i}";
   mysql -h${1} -P${port} -e "kill $i;" 1>/dev/null 2>/dev/null
 done
+
 echo -e "\n";

@@ -19,7 +19,8 @@ logstash_LOG_FILE="/data/logs/logstash/logstash.log"
 
 lockfile=/var/lock/subsys/logstash
 
-start() {
+start()
+{
   [ -x $logstash ] || exit 5
   [ -f $logstash_CONF_FILE ] || exit 6
   echo -n $"Starting $prog: "
@@ -30,7 +31,8 @@ start() {
   return $retval
 }
 
-stop() {
+stop()
+{
   echo -n $"Stopping $prog: "
   killproc $prog -9
   retval=$?
@@ -39,7 +41,8 @@ stop() {
   return $retval
 }
 
-restart() {
+restart()
+{
   stop
   sleep 1
   start

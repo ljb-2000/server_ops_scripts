@@ -17,24 +17,26 @@ Checker="/usr/bin/md5sum"
 
 Find="/usr/bin/find"
 
-scan_files() {
+scan_files()
+{
   local f
-  for f in $Dirs
-  do
+  for f in $Dirs;do
     $Find $f -type f >> $tmpFile
   done
 }
 
-cr_checksum_list() {
+cr_checksum_list()
+{
   local f
   if [ -f $tmpFile ];then
-    for f in $(cat $tmpFile);
-      do $Checker $f >> $FP
+    for f in $(cat $tmpFile);do
+      $Checker $f >> $FP
     done
   fi
 }
 
-rmTMP() {
+rmTMP()
+{
   [ -f $tmpFile ] && rm -rf $tmpFile
 }
 

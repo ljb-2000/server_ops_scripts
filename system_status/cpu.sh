@@ -8,19 +8,17 @@ user=0
 nice=0
 mem=0
 vmexec=`which vmstat | awk '{print $1}'`
-if [ "$vmexec" = "no" ]
-then
-echo "error_text=Please check vmstat execute path"
-exit
+
+if [ "$vmexec" = "no" ];then
+  echo "error_text=Please check vmstat execute path"
+  exit
 else
-if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
-then
-  which sar > /dev/null 2>&1
-  if [ $? -ne 0 ]
-  then
+  if [ "$os" = "linux" ] || [ "$os" = "Linux" ];then
+    which sar > /dev/null 2>&1
+    if [ $? -ne 0 ];then
     ver=`vmstat -V | awk '{printf $3}'`
-    if [ "$ver" = "2.0.11" ] || [ "$ver" = "2.0.7" ] || [ "$ver" = "2.0.6" ]
-    then
+    
+    if [ "$ver" = "2.0.11" ] || [ "$ver" = "2.0.7" ] || [ "$ver" = "2.0.6" ];then
       nice=0
       temp=`vmstat 1 3 |tail -1`
       user=`echo $temp |awk '{printf("%s\n",$14)}'`
@@ -28,8 +26,7 @@ then
       idle=`echo $temp |awk '{printf("%s\n",$16)}'`
       total=`echo|awk '{print (c1+c2)}' c1=$system c2=$user`
    
-    elif [ "$ver" = "2.0.13" ]
-    then
+    elif [ "$ver" = "2.0.13" ];then
       nice=0
       temp=`vmstat 1 3 |tail -1`
       user=`echo $temp |awk '{printf("%s\n",$13)}'`
@@ -64,8 +61,7 @@ then
     total=`echo|awk '{print (c1+c2)}' c1=$system c2=$user`
   fi
 
-elif [ "$os" = "SunOS" ]
-then
+elif [ "$os" = "SunOS" ];then
   nice=0
   temp=`vmstat 1 3 |tail -1`
   user=`echo $temp |awk '{printf("%s\n",$20)}'`
@@ -73,8 +69,7 @@ then
   idle=`echo $temp |awk '{printf("%s\n",$22)}'`
   total=`echo|awk '{print (c1+c2)}' c1=$system c2=$user`
 
-elif [ "$os" = "HP-UX" ]
-then
+elif [ "$os" = "HP-UX" ];then
   nice=0
   temp=`vmstat 1 3 |tail -1`
   user=`echo $temp |awk '{printf("%s\n",$16)}'`
@@ -82,8 +77,7 @@ then
   idle=`echo $temp |awk '{printf("%s\n",$18)}'`
   total=`echo|awk '{print (c1+c2)}' c1=$system c2=$user`
 
-elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ]
-then
+elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ];then
   nice=0
   temp=`vmstat 1 3 |tail -1`
   user=`echo $temp |awk '{printf("%s\n",$18)}'`
@@ -91,8 +85,7 @@ then
   idle=`echo $temp |awk '{printf("%s\n",$20)}'`
   total=`echo|awk '{print (c1+c2)}' c1=$system c2=$user`
 
-elif [ "$os" = "AIX" ] || [ "$os" = "aix" ]
-then
+elif [ "$os" = "AIX" ] || [ "$os" = "aix" ];then
   temp=`vmstat 1 3 |tail -1`
   user=`echo $temp |awk '{printf("%s\n",$14)}'`
   system=`echo $temp |awk '{printf("%s\n",$15)}'`

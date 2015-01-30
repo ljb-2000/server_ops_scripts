@@ -13,8 +13,7 @@ for((i=101;i<=105;i++)); do
   #echo $next_date
   grep -n -m 1 "Time: $next_date " $MYSQLSLOW_WORK
 
-  if [ $? -eq 0 ]
-  then
+  if [ $? -eq 0 ];then
     #found
     cut_line=`grep -n -m 1 "Time: $next_date " $MYSQLSLOW_WORK | awk -F: '{print $1-1}'`
     #echo $cut_line

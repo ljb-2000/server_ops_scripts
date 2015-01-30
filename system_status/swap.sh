@@ -14,19 +14,16 @@ free=0
 used=0
 util=0
 
-if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
-then
+if [ "$os" = "linux" ] || [ "$os" = "Linux" ];then
   swapon -s | grep /dev > $tempfile1
 
   cat $tempfile1 | awk '{ print $3 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     total=`expr $total + $var`
   done
 
   cat $tempfile1 | awk '{ print $4 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     used=`expr $used + $var`
   done
 
@@ -36,19 +33,16 @@ then
   used=`expr $used / 1024`
   free=`expr $free / 1024`
 
-elif [ "$os" = "SunOS" ]
-then
+elif [ "$os" = "SunOS" ];then
   swap -l | grep /dev > $tempfile1
 
   cat $tempfile1 | awk '{ print $4 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     total=`expr $total + $var`
   done
 
   cat $tempfile1 | awk '{ print $5 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     free=`expr $free + $var`
   done
 
@@ -60,8 +54,7 @@ then
   used=`expr $used / 1024`
   free=`expr $free / 1024`
 
-elif [ "$os" = "AIX" ] || [ "$os" = "aix" ]
-then
+elif [ "$os" = "AIX" ] || [ "$os" = "aix" ];then
   temp1=`lsps -s | tail -1 | awk '{print $1}'`
   total=`echo $temp1 | awk '{gsub("MB"," "); print $0}'`
 
@@ -70,18 +63,15 @@ then
 
   used=`lsps -s | tail -1 | awk '{print ($1 * $2 / 100)}'`
 
-elif [ "$os" = "HP-UX" ]
-then
+elif [ "$os" = "HP-UX" ];then
   swapinfo | grep /dev > $tempfile1
   cat $tempfile1 | awk '{ print $2 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     total=`expr $total + $var`
   done
 
   cat $tempfile1 | awk '{ print $3 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     used=`expr $used + $var`
   done
 
@@ -91,19 +81,16 @@ then
   used=`expr $used / 1024`
   free=`expr $free / 1024`
 
-elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ]
-then
+elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ];then
   swap -l | grep /dev > $tempfile1
 
   cat $tempfile1 | awk '{ print $4 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     total=`expr $total + $var`
   done
 
   cat $tempfile1 | awk '{ print $5 }' > $tempfile2
-  for var in `cat $tempfile2`
-  do
+  for var in `cat $tempfile2`;do
     free=`expr $free + $var`
   done
 

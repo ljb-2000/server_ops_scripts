@@ -3,14 +3,11 @@
 os=`uname`
 mem=0
 
-if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
-then
+if [ "$os" = "linux" ] || [ "$os" = "Linux" ];then
   which sar > /dev/null 2>&1
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     which free > /dev/null 2>&1
-    if [ $? -ne 0 ]
-    then
+    if [ $? -ne 0 ];then
       echo "error_text='sar'and 'free' commands not found!"
       exit
     else
@@ -28,11 +25,9 @@ then
     total=`echo|awk '{print (c1+c2)}' c1=$used c2=$free`
   fi
 
-elif [ "$os" = "SunOS" ]
-then
-vmexec=`which vmstat | awk '{print $1}'`
-if [ "$vmexec" = "no" ]
-then
+elif [ "$os" = "SunOS" ];then
+  vmexec=`which vmstat | awk '{print $1}'`
+  if [ "$vmexec" = "no" ];then
     echo "error_text=vmstat command not found!"
     exit 0
   fi
@@ -46,8 +41,7 @@ then
   used_kb=`echo|awk '{print (c1-c2) }' c1=$total_kb c2=$free`
   used_pg=`echo|awk '{print (c1-c2*4) }' c1=$total_kb c2=$free`
 
-  if [ $used_kb -gt $t ] && [ $used_pg -gt 0 ] 
-  then
+  if [ $used_kb -gt $t ] && [ $used_pg -gt 0 ];then
     used=$used_pg 
   else
     used=$used_kb
@@ -57,18 +51,15 @@ then
   # change unit into KB
   total=$total_kb
 
-elif [ "$os" = "AIX" ]
-then
+elif [ "$os" = "AIX" ];then
   svmon_out=`svmon -G | grep -i memory`
   total=`echo $svmon_out | awk '{ print ($2 * 4)}'`
   used=`echo $svmon_out | awk '{ print ($3 * 4)}'`
   mem=`echo|awk '{printf("%0.2f",((c1*100)/c2)) }' c1=$used c2=$total`
 
-elif [ "$os" = "HP-UX" ]
-then
-vmexec=`which vmstat | awk '{print $1}'`
-if [ "$vmexec" = "no" ]
-then
+elif [ "$os" = "HP-UX" ];then
+  vmexec=`which vmstat | awk '{print $1}'`
+  if [ "$vmexec" = "no" ];then
     echo "error_text=vmstat command not found!"
     exit 0
   fi
@@ -84,9 +75,8 @@ then
   mem=`expr $used \* 100 / $total`
 
 else
-vmexec=`which vmstat | awk '{print $1}'`
-if [ "$vmexec" = "no" ]
-then
+  vmexec=`which vmstat | awk '{print $1}'`
+  if [ "$vmexec" = "no" ];then
     echo "error_text=vmstat command not found!"
     exit 0
   fi
@@ -97,6 +87,7 @@ then
   used=`echo|awk '{print (c1-c2) }' c1=$total c2=$free`
   mem=`echo|awk '{print ((c1*100)/c2) }' c1=$used c2=$total`
 fi
+
 total=`echo | awk '{printf ("%.0f", c1/1024) }' c1=$total `
 used=`echo | awk '{printf ("%.0f", c1/1024) }' c1=$used`
 mem=`echo | awk '{printf ("%.0f", c1) }' c1=$mem`

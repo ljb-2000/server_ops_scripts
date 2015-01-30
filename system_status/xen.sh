@@ -9,8 +9,7 @@ vcpu=0
 state=0
 time=0
 #temp=`xm list`
-if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
-then
+if [ "$os" = "linux" ] || [ "$os" = "Linux" ];then
   name=`xm list|sed -n '2p'|awk '{print $1}'`
   id=`xm list|sed -n '2p'|awk '{print $2}'`
   mem=`xm list|sed -n '2p'|awk '{print $3}'`

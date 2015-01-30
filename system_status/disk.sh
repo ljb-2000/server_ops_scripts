@@ -1,7 +1,6 @@
 #!/bin/bash
 
-if [ $# -lt 1 ]
-then
+if [ $# -lt 1 ];then
   echo "error_text=diskname argument not specified!"
   exit
 fi
@@ -17,18 +16,15 @@ used_mb      ="-1"
 
 #get pure disk name
 which nawk > /dev/null 2>&1
-if [ $? -eq 0 ]
-then
+if [ $? -eq 0 ];then
   awk_cmd="nawk"
 fi
 tempfile=`echo $diskname|$awk_cmd '{gsub("/",""); print $0}'`
 tempfile="disk_$tempfile.temp"
 
-if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
-then
+if [ "$os" = "linux" ] || [ "$os" = "Linux" ];then
   df $diskname >$tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     rm $tempfile
     exit 0
@@ -46,11 +42,9 @@ then
   used    ="${used}GB"
 
 
-elif [ "$os" = "SunOS" ]
-then
+elif [ "$os" = "SunOS" ];then
   df -k $diskname > $tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     exit 0
   fi
@@ -68,12 +62,10 @@ then
 
 
 
-elif [ "$os" = "HP-UX" ]
-then
+elif [ "$os" = "HP-UX" ];then
   #df -k $diskname > /dev/null
   df -k $diskname > $tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     exit 0
   fi
@@ -88,12 +80,10 @@ then
   echo "status_text=Disk Utilization: {0}%;;;${diskutil}"
   exit
 
-elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ]
-then
+elif [ "$os" = "SCO_SV" ] || [ "$os" = "UnixWare" ];then
   #df -k $diskname > /dev/null
   df -k $diskname > $tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     exit 0
   fi
@@ -108,11 +98,9 @@ then
   echo "status_text=Disk Utilization: {0}%;;;${diskutil}"
   exit
 
-elif [ "$os" = "OSF1" ]
-then
+elif [ "$os" = "OSF1" ];then
   df $diskname > $tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     exit 0
   fi
@@ -126,12 +114,10 @@ then
   echo "status_text=Disk Utilization: {0}%;;;${diskutil}"
   exit
 
-elif [ "$os" = "AIX" ] || [ "$os" = "aix" ]
-then
+elif [ "$os" = "AIX" ] || [ "$os" = "aix" ];then
   #df -k $diskname > /dev/null
   df -k $diskname > $tempfile
-  if [ $? -ne 0 ]
-  then
+  if [ $? -ne 0 ];then
     echo "error_text=$diskname not found"
     exit 0
   fi

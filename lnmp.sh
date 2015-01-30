@@ -10,26 +10,26 @@ mysqlrootpwd="mysql123!@#"
 
 function check_nginx()
 {
-   if [ -d /usr/local/nginx/ ];then
-   	echo "nginx already installed!"
-   	exit 1     
-   fi
+  if [ -d /usr/local/nginx/ ];then
+    echo "nginx already installed!"
+    exit 1
+  fi
 }
 
 function check_php()
 {
-   if [ -d /usr/local/php ];then
-   	echo "php 5.2.17 already installed!"
-   	exit 1
-   fi
+  if [ -d /usr/local/php ];then
+    echo "php 5.2.17 already installed!"
+    exit 1
+  fi
 }
 
 function check_mysql()
 {
-    if [ -d /usr/local/mysql/ ];then
-    	echo -n "mysql already installed!"
-    	exit 1
-    fi
+  if [ -d /usr/local/mysql/ ];then
+    echo -n "mysql already installed!"
+    exit 1
+  fi
 }
 
 function init()
@@ -65,12 +65,12 @@ EOF
 
 for i in `cat list`
 do
-	if [ -s $packages_dir/$i ]; then
-		echo "$i [found]"
-	else
-		echo "Error: $i not found!!!download now......"
-		wget http://mayiwei.com/lnmp/$i -P $packages_dir/
-	fi
+  if [ -s $packages_dir/$i ]; then
+    echo "$i [found]"
+  else
+    echo "Error: $i not found!!!download now......"
+    wget http://mayiwei.com/lnmp/$i -P $packages_dir/
+  fi
 done
 
 groupadd -g 80 www && useradd www -s /sbin/nologin -g www -u 80
@@ -148,13 +148,13 @@ source /etc/profile
 cd $packages_dir/
 for i in `uname -m`
 do
-	if [[ $i == i686 ]];then
-		tar zxf mysql-5.5.33-linux2.6-i686.tar.gz && mv mysql-5.5.33-linux2.6-i686 /usr/local/
-		ln -s /usr/local/mysql-5.5.33-linux2.6-i686 /usr/local/mysql
-	else [[ $i == x86_64 ]]
-		tar zxf mysql-5.5.33-linux2.6-x86_64.tar.gz && mv mysql-5.5.33-linux2.6-x86_64 /usr/local/
-		ln -s mysql-5.5.33-linux2.6-x86_64 /usr/local/mysql
-	fi
+  if [[ $i == i686 ]];then
+    tar zxf mysql-5.5.33-linux2.6-i686.tar.gz && mv mysql-5.5.33-linux2.6-i686 /usr/local/
+    ln -s /usr/local/mysql-5.5.33-linux2.6-i686 /usr/local/mysql
+  else [[ $i == x86_64 ]]
+    tar zxf mysql-5.5.33-linux2.6-x86_64.tar.gz && mv mysql-5.5.33-linux2.6-x86_64 /usr/local/
+    ln -s mysql-5.5.33-linux2.6-x86_64 /usr/local/mysql
+  fi
 done
 mkdir -p /data/mysql/data
 /bin/chown -R mysql:root /usr/local/mysql/
@@ -209,32 +209,32 @@ cd ../
 
 for i in `uname -m`
 do
-	if [[ $i == i686 ]];then
-		ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
-		ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
-		ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
-		ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
-		ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
-		ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
-		ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
-		ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
-		ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
-		ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
-		ln -s /usr/local/mysql/lib/libmysqlclient.so.18  /usr/lib/libmysqlclient.so.18
-	else [[ $i == x86_64 ]]
-		ln -s /usr/local/lib/libmcrypt.la /usr/lib64/libmcrypt.la
-		ln -s /usr/local/lib/libmcrypt.so /usr/lib64/libmcrypt.so
-		ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib64/libmcrypt.so.4
-		ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib64/libmcrypt.so.4.4.8
-		ln -s /usr/local/lib/libmhash.a /usr/lib64/libmhash.a
-		ln -s /usr/local/lib/libmhash.la /usr/lib64/libmhash.la
-		ln -s /usr/local/lib/libmhash.so /usr/lib64/libmhash.so
-		ln -s /usr/local/lib/libmhash.so.2 /usr/lib64/libmhash.so.2
-		ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib64/libmhash.so.2.0.1
-		ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
-		cp -frp /usr/lib64/libldap* /usr/lib/
-		ln -s /usr/local/mysql/lib/libmysqlclient.so.18  /usr/lib64/libmysqlclient.so.18
-	fi
+  if [[ $i == i686 ]];then
+    ln -s /usr/local/lib/libmcrypt.la /usr/lib/libmcrypt.la
+    ln -s /usr/local/lib/libmcrypt.so /usr/lib/libmcrypt.so
+    ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib/libmcrypt.so.4
+    ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib/libmcrypt.so.4.4.8
+    ln -s /usr/local/lib/libmhash.a /usr/lib/libmhash.a
+    ln -s /usr/local/lib/libmhash.la /usr/lib/libmhash.la
+    ln -s /usr/local/lib/libmhash.so /usr/lib/libmhash.so
+    ln -s /usr/local/lib/libmhash.so.2 /usr/lib/libmhash.so.2
+    ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib/libmhash.so.2.0.1
+    ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
+    ln -s /usr/local/mysql/lib/libmysqlclient.so.18  /usr/lib/libmysqlclient.so.18
+  else [[ $i == x86_64 ]]
+    ln -s /usr/local/lib/libmcrypt.la /usr/lib64/libmcrypt.la
+    ln -s /usr/local/lib/libmcrypt.so /usr/lib64/libmcrypt.so
+    ln -s /usr/local/lib/libmcrypt.so.4 /usr/lib64/libmcrypt.so.4
+    ln -s /usr/local/lib/libmcrypt.so.4.4.8 /usr/lib64/libmcrypt.so.4.4.8
+    ln -s /usr/local/lib/libmhash.a /usr/lib64/libmhash.a
+    ln -s /usr/local/lib/libmhash.la /usr/lib64/libmhash.la
+    ln -s /usr/local/lib/libmhash.so /usr/lib64/libmhash.so
+    ln -s /usr/local/lib/libmhash.so.2 /usr/lib64/libmhash.so.2
+    ln -s /usr/local/lib/libmhash.so.2.0.1 /usr/lib64/libmhash.so.2.0.1
+    ln -s /usr/local/bin/libmcrypt-config /usr/bin/libmcrypt-config
+    cp -frp /usr/lib64/libldap* /usr/lib/
+    ln -s /usr/local/mysql/lib/libmysqlclient.so.18  /usr/lib64/libmysqlclient.so.18
+  fi
 done
 
 tar zxf mcrypt-2.6.8.tar.gz && cd mcrypt-2.6.8/
@@ -246,11 +246,11 @@ cd ../
 tar zxf php-5.4.19.tar.gz && cd php-5.4.19/
 for m in `cat /proc/meminfo|grep MemTotal|awk -F"       " '{print $2}'|awk '{print $1}'`
 do
-	if (("$m" < "524288"));then
-		./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear --disable-fileinfo
-	else (("$m" > "524288"))
-		./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear
-	fi
+  if (("$m" < "524288"));then
+    ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear --disable-fileinfo
+  else (("$m" > "524288"))
+    ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear
+  fi
 done
 make ZEND_EXTRA_LIBS='-liconv'
 make install
@@ -309,26 +309,26 @@ EOF
 
 read -p "Your arch is $i,select the top option to install LNMP...1|2|3|4:" selectopt
 case "$selectopt" in
-	"1")
-		init
-		install_nginx
-	;;
-	"2")
-		install_mysql
-	;;
-	"3")
-		init
-		install_php
-		install_phpext
-	;;
-	"4")
-		init
-		install_mysql
-		install_php
-		install_phpext
-		install_nginx
-	;;
-	*)
-		echo "$0 nginx_php"
-	;;
+  "1")
+    init
+    install_nginx
+  ;;
+  "2")
+    install_mysql
+  ;;
+  "3")
+    init
+    install_php
+    install_phpext
+  ;;
+  "4")
+    init
+    install_mysql
+    install_php
+    install_phpext
+    install_nginx
+  ;;
+  *)
+    echo "$0 nginx_php"
+  ;;
 esac

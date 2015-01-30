@@ -19,7 +19,7 @@ used_mb      ="-1"
 which nawk > /dev/null 2>&1
 if [ $? -eq 0 ]
 then
-    awk_cmd="nawk"
+  awk_cmd="nawk"
 fi
 tempfile=`echo $diskname|$awk_cmd '{gsub("/",""); print $0}'`
 tempfile="disk_$tempfile.temp"

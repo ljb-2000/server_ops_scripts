@@ -4,5 +4,5 @@
 SPACE='df | sed -n '/ \ / $ / p' | gawk '{print $5}' | sed  's/%//'
 if [ $SPACE -ge 90 ]
 then
-fty89@163.com
+  fty89@163.com
 fi

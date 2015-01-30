@@ -11,14 +11,13 @@ time=0
 #temp=`xm list`
 if [ "$os" = "linux" ] || [ "$os" = "Linux" ]
 then
-	name=`xm list|sed -n '2p'|awk '{print $1}'`
-       id=`xm list|sed -n '2p'|awk '{print $2}'`
-       mem=`xm list|sed -n '2p'|awk '{print $3}'`
-      vcpu=`xm list|sed -n '2p'|awk '{print $4}'`
-     state=`xm list|sed -n '2p'|awk '{print $5}'`
-      time=`xm list|sed -n '2p'|awk '{print $6}'`
-   
-    fi
+  name=`xm list|sed -n '2p'|awk '{print $1}'`
+  id=`xm list|sed -n '2p'|awk '{print $2}'`
+  mem=`xm list|sed -n '2p'|awk '{print $3}'`
+  vcpu=`xm list|sed -n '2p'|awk '{print $4}'`
+  state=`xm list|sed -n '2p'|awk '{print $5}'`
+  time=`xm list|sed -n '2p'|awk '{print $6}'`
+fi
 
 echo "Xen-1(name)=$name"
 echo "Xen-1(id)=$id"

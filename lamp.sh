@@ -10,26 +10,26 @@ mysqlrootpwd="mysql123!@#"
 
 function check_apache()
 {
-   if [ -d /usr/local/apache2/ ];then
-   	echo "apache already installed!"
-   	exit 1     
-   fi
+  if [ -d /usr/local/apache2/ ];then
+  echo "apache already installed!"
+  exit 1     
+  fi
 }
 
 function check_php()
 {
-   if [ -d /usr/local/php ];then
-   	echo "php 5.2.17 already installed!"
-   	exit 1
-   fi
+  if [ -d /usr/local/php ];then
+    echo "php 5.2.17 already installed!"
+    exit 1
+  fi
 }
 
 function check_mysql()
 {
-    if [ -d /usr/local/mysql/ ];then
-    	echo -n "mysql already installed!"
-    	exit 1
-    fi
+  if [ -d /usr/local/mysql/ ];then
+    echo -n "mysql already installed!"
+    exit 1
+  fi
 }
 
 function init()
@@ -54,12 +54,12 @@ EOF
 
 for i in `cat list`
 do
-	if [ -s $packages_dir/$i ]; then
-		echo "$i [found]"
-	else
-		echo "Error: $i not found!!!download now......"
-		wget http://mayiwei.com/lamp/$i -P $packages_dir/
-	fi
+  if [ -s $packages_dir/$i ]; then
+    echo "$i [found]"
+  else
+    echo "Error: $i not found!!!download now......"
+    wget http://mayiwei.com/lamp/$i -P $packages_dir/
+  fi
 done
 
 groupadd -g 80 www && useradd www -s /sbin/nologin -g www -u 80
@@ -131,13 +131,13 @@ source /etc/profile
 cd $packages_dir/
 for i in `uname -m`
 do
-	if [[ $i == i686 ]];then
-		tar zxf mysql-5.5.33-linux2.6-i686.tar.gz && mv mysql-5.5.33-linux2.6-i686 /usr/local/
-		ln -s /usr/local/mysql-5.5.33-linux2.6-i686 /usr/local/mysql
-	else [[ $i == x86_64 ]]
-		tar zxf mysql-5.5.33-linux2.6-x86_64.tar.gz && mv mysql-5.5.33-linux2.6-x86_64 /usr/local/
-		ln -s mysql-5.5.33-linux2.6-x86_64 /usr/local/mysql
-	fi
+  if [[ $i == i686 ]];then
+    tar zxf mysql-5.5.33-linux2.6-i686.tar.gz && mv mysql-5.5.33-linux2.6-i686 /usr/local/
+    ln -s /usr/local/mysql-5.5.33-linux2.6-i686 /usr/local/mysql
+  else [[ $i == x86_64 ]]
+    tar zxf mysql-5.5.33-linux2.6-x86_64.tar.gz && mv mysql-5.5.33-linux2.6-x86_64 /usr/local/
+    ln -s mysql-5.5.33-linux2.6-x86_64 /usr/local/mysql
+  fi
 done
 mkdir -p /data/mysql/data
 /bin/chown -R mysql:root /usr/local/mysql/
@@ -188,11 +188,11 @@ cd ../
 tar zxf php-5.4.19.tar.gz && cd php-5.4.19/
 for m in `cat /proc/meminfo|grep MemTotal|awk -F"       " '{print $2}'|awk '{print $1}'`
 do
-	if (("$m" < "524288"));then
-		./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear --disable-fileinfo
-	else (("$m" > "524288"))
-		./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear
-	fi
+  if (("$m" < "524288"));then
+    ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear --disable-fileinfo
+  else (("$m" > "524288"))
+    ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir=/usr/local --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-fpm --enable-mbstring --with-mcrypt --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-ldap --with-ldap-sasl --with-xmlrpc --enable-zip --enable-soap --without-pear
+  fi
 done
 make && make install
 cd ..
@@ -249,26 +249,26 @@ EOF
 
 read -p "Your arch is $i,select the top option to install LNMP...1|2|3|4:" selectopt
 case "$selectopt" in
-	"1")
-		init
-		install_apache
-	;;
-	"2")
-		install_mysql
-	;;
-	"3")
-		init
-		install_php
-		install_phpext
-	;;
-	"4")
-		init
-		install_mysql
-		install_php
-		install_phpext
-		install_apache
-	;;
-	*)
-		echo "$0 apache_php"
-	;;
+  "1")
+    init
+    install_apache
+  ;;
+  "2")
+    install_mysql
+  ;;
+  "3")
+    init
+    install_php
+    install_phpext
+  ;;
+  "4")
+    init
+    install_mysql
+    install_php
+    install_phpext
+    install_apache
+  ;;
+  *)
+    echo "$0 apache_php"
+  ;;
 esac

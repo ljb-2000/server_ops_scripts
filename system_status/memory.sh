@@ -18,7 +18,7 @@ then
       used=`free | grep Mem: | awk '{ print $3 }'`
       mem=`echo|awk '{print ((c1*100)/c2) }' c1=$used c2=$total`
     fi
-  else 
+  else
     sar -r 1 3 > sar_memory_out 2>&1
     cat sar_memory_out | grep Average > memory_temp
     used=`sed -n 1p memory_temp | awk '{ print $3 }'`

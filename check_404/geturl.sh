@@ -29,24 +29,26 @@ awk -F/ '$4 ~/^Activity$/' $file > $channel_dir/Activity
 
 #check http code 200
 for url in `cat /usr/local/sbin/geturl/url/*`;do
-    total=`expr $total + 1`
-    b=`curl -I $url -s | head -1 | awk '{print$2}'`
-    if [[ $b -ne $code ]];then
-        echo $url >> $work_dir/failure.log
-        failure=`expr $failure + 1`
-    else
-        success=`expr $success + 1`
-    fi;
+  total=`expr $total + 1`
+  b=`curl -I $url -s | head -1 | awk '{print$2}'`
+  if [[ $b -ne $code ]];then
+    echo $url >> $work_dir/failure.log
+    failure=`expr $failure + 1`
+  else
+    success=`expr $success + 1`
+  fi;
 done
+
 echo Total=$total >> $work_dir/info.log
 echo Success=$success >> $work_dir/info.log
 echo Failure=$failure >> $work_dir/info.log
 
 #delete from url
 for file in `ls /usr/local/sbin/geturl/url`;do
-    grep -v -f $work_dir/failure.log $channel_dir/$file > $channel_dir/$file.tmp
-    cat $channel_dir/$file.tmp > $channel_dir/$file
+  grep -v -f $work_dir/failure.log $channel_dir/$file > $channel_dir/$file.tmp
+  cat $channel_dir/$file.tmp > $channel_dir/$file
 done
+
 rm -rf $channel_dir/$file.tmp
 
 #copy to server
